@@ -17,4 +17,8 @@
 - [How to setup your development environment](lessons/00_how_to_setup_your_development_environment.md)
 - [How to create a local Kubernetes cluster](lessons/01_create_local_kubernetes_cluster.md)
 
+## Commands
+
+
+
 ## Lessons

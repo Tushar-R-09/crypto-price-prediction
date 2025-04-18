@@ -20,7 +20,9 @@
     // "forwardPorts": []
 
     // 2. Use 'mounts' to make a list of local directories available inside the container. More info: https://code.visualstudio.com/remote/advancedcontainers/add-local-file-mount
-    // "mounts": [],
+    "mounts": [
+    "type=bind,source=C:/Users/LENOVO/.ssh,target=/root/.ssh,readonly=False"
+        ],
 
     // 3. Use 'runArgs' to pass arguments to the container.
     // run the container with all GPUs
@@ -33,6 +35,7 @@
     "features": {
         // Python with uv, Ruff, Mypy, MonkeyType and Bandit, installed using pipx 
         "ghcr.io/devcontainers/features/python:1": {
+            "version": 3.12,
             "installTools": "true",
             "toolsToInstall": "uv,ruff,mypy,MonkeyType,bandit"
         },
