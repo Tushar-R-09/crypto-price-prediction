@@ -19,6 +19,27 @@
 
 ## Commands
  - chmod 600 ~/.ssh/id_rsa : To restrict permission to ssh keys
+ - uv init <project-name> : The uv project creation
+ - uv init trades --lib : To add a package in workspace # All the dependencies will be synced in one place
+
+ ## Install kkubectl in dev container
+  VERSION="v1.29.4"
+  curl -LO "https://dl.k8s.io/release/${VERSION}/bin/linux/amd64/kubectl"
+  chmod +x kubectl
+  mv kubectl /usr/local/bin/
+  kubectl version --client
+
+## Install k9s 
+    curl -Lo k9s.tar.gz https://github.com/derailed/k9s/releases/latest/download/k9s_Linux_amd64.tar.gz
+    tar -xzf k9s.tar.gz
+    chmod +x k9s
+    sudo mv k9s /usr/local/bin/
+
+## Type inside k9s
+    -Type ":"
+    - Start typing
+    svc (For kubernetes services)
+
 
 
 
