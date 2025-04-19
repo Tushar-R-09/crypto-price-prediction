@@ -18,6 +18,7 @@
 - [How to create a local Kubernetes cluster](lessons/01_create_local_kubernetes_cluster.md)
 
 ## Commands
+ - chmod 600 ~/.ssh/id_rsa : To restrict permission to ssh keys
 
 
 
