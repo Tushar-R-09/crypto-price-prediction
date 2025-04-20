@@ -40,6 +40,9 @@
     - Start typing
     svc (For kubernetes services)
 
+## port forwarding for kafka ui
+kubectl -n kafka port-forward svc/kafka-ui 8182:8080
+
 
 
 
