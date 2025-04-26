@@ -18,3 +18,17 @@ This command will create a .venv folder for environment.
  .venv\Scripts\activate
 
 ```
+
+### Add pyproject.toml
+
+```
+uv init
+
+```
+
+### To make whole software as library
+
+```
+uv init trades --lib
+
+```
