@@ -32,3 +32,10 @@ uv init
 uv init trades --lib
 
 ```
+
+### Install Kafka in kubernetes cluster
+
+```
+deployment\dev\kind\setup_kafka.bat
+
+```
