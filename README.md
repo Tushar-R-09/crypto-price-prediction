@@ -39,3 +39,16 @@ uv init trades --lib
 deployment\dev\kind\setup_kafka.bat
 
 ```
+
+### Install kafka UI
+
+```
+deployment\dev\kind\install_kafka_ui.bat
+
+```
+### Do port forwarding to access kafka fromm local 
+
+```
+kubectl -n kafka port-forward svc/kafka-ui 8182:8080
+
+```
