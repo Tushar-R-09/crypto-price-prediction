@@ -52,3 +52,9 @@ deployment\dev\kind\install_kafka_ui.bat
 kubectl -n kafka port-forward svc/kafka-ui 8182:8080
 
 ```
+
+### Power shell Command to check from windows which port is working
+
+```
+Test-NetConnection -ComputerName 127.0.0.1 -Port 31235
+```
