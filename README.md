@@ -58,3 +58,29 @@ kubectl -n kafka port-forward svc/kafka-ui 8182:8080
 ```
 Test-NetConnection -ComputerName 127.0.0.1 -Port 31235
 ```
+
+### To get cluster name
+ ```
+ kind get clusters
+ ```
+ ### TO push an image to kind cluster locally
+ ```
+ kind load docker-image trades:dev --name rwml-34fa
+ ```
+
+ ### Switching the branch on git along with copying file
+ ```
+ git checkout <branch_name> -- <path to file>
+ ```
+
+ ### To list all deployments in kubernetes
+ ```
+ kubectl get deployments -A
+ ```
+
+ ### To get into a container
+ ```
+ docker exec -it <name_of_container> /bin/bash
+
+ kubectl exec -it -n <namespace> <pod-name> -- /bin/bash
+ ```

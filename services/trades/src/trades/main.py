@@ -44,6 +44,6 @@ def run(
 if __name__ == "__main__":
 
     kraken_api = KrakenAPI(product_ids=["BTC/EUR"])
-    run(kafka_broker_address="localhost:9092",
+    run(kafka_broker_address="kafka-e11b-kafka-bootstrap.kafka.svc.cluster.local:9092",
         kafka_topic_name="trades",
         kraken_api = kraken_api)
