@@ -578,14 +578,18 @@ version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "loguru" },
+    { name = "python-dotenv" },
     { name = "quixstreams" },
+    { name = "trades" },
     { name = "websocket-client" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "loguru", specifier = ">=0.7.3" },
+    { name = "python-dotenv", specifier = ">=1.1.0" },
     { name = "quixstreams", specifier = ">=3.13.1" },
+    { name = "trades", editable = "services/trades" },
     { name = "websocket-client", specifier = ">=1.8.0" },
 ]
 

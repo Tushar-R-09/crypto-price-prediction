@@ -84,3 +84,10 @@ Test-NetConnection -ComputerName 127.0.0.1 -Port 31235
 
  kubectl exec -it -n <namespace> <pod-name> -- /bin/bash
  ```
+
+ ### Adding trades as a package
+Run this from root directory of project
+ ```
+ uv add trades
+```
+This will add trades as a importable package as it is already mentioned in workspace

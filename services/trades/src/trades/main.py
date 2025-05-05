@@ -1,6 +1,6 @@
 # Create an Application instance with Kafka configs
 from quixstreams import Application
-from kraken_api import KrakenAPI, Trade
+from trades.kraken_api import KrakenAPI, Trade
 from loguru import logger
 
 
@@ -37,13 +37,15 @@ def run(
                    # , key=message.key
                 )
                 logger.info(f"Produced message: {topic.name}")
+                logger.info(f"Trades pushed to kafka{event.to_dict()}")
             
             # breakpoint()
 
 
 if __name__ == "__main__":
     from trades.config import config
-    kraken_api = KrakenAPI(product_ids=["BTC/EUR"])
+    kraken_api = KrakenAPI(product_ids=config.product_id)
+    #print(config.model_dump())
     run(kafka_broker_address=config.kafka_broker_address,
         kafka_topic_name= config.kafka_topic_name,
         kraken_api = kraken_api)
