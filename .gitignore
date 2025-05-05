@@ -1,3 +1,5 @@
 real-time-ml-system-cohort-3/
 *.pyc
 __pycache__/
+*.gz
+*.whl

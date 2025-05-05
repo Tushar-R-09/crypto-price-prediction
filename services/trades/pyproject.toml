@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 authors = [
-    { name = "Tushar Rohilla", email = "tusharrohilla70#gmail.com" }
+    { name = "Tushar Rohilla", email = "tusharrohilla70@gmail.com" }
 ]
 requires-python = ">=3.12"
 dependencies = []
@@ -12,3 +12,7 @@ dependencies = []
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[tool.hatch.build]
+# This config tells Hatch to use the src directory for package discovery
+sources = ["src"]
