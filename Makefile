@@ -10,3 +10,6 @@ build:
 deploy: build push
 	kubectl delete -f deployment/dev/trades/trades.yaml
 	kubectl apply -f deployment/dev/trades/trades.yaml
+
+lint: 
+	ruff check . --fix

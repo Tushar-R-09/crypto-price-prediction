@@ -91,3 +91,17 @@ Run this from root directory of project
  uv add trades
 ```
 This will add trades as a importable package as it is already mentioned in workspace
+
+### Install ruff and pre-commit using uv
+```
+uv tool install ruff@latest
+uv tool install pre-commit@latest
+
+```
+
+### Install pre-commit 
+It is a one time thing to activate the hook
+```
+pre-commit install
+
+```

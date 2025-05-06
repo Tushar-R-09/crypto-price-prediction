@@ -1,7 +1,8 @@
 # Create an Application instance with Kafka configs
-from quixstreams import Application
-from trades.kraken_api import KrakenAPI, Trade
 from loguru import logger
+from quixstreams import Application
+
+from trades.kraken_api import KrakenAPI, Trade
 
 
 def run(
@@ -25,7 +26,7 @@ def run(
             # Fetch the event from topic
             events: list[Trade] = kraken_api.get_trades()
             #event = {"id": "1", "text": "Lorem ipsum dolor sit amet"}
-            # Serialize an event using the defined Topic 
+            # Serialize an event using the defined Topic
             for event in events:
                 message = topic.serialize(#key=event["id"],
                                          value=event.to_dict())
@@ -38,7 +39,7 @@ def run(
                 )
                 logger.info(f"Produced message: {topic.name}")
                 logger.info(f"Trades pushed to kafka{event.to_dict()}")
-            
+
             # breakpoint()
 
 
