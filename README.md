@@ -105,3 +105,21 @@ It is a one time thing to activate the hook
 pre-commit install
 
 ```
+
+### Install direnv
+
+First install scoop
+
+1. Open powershell as admin permission
+
+```
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+2. Open powershell as non admin
+```
+iwr -useb get.scoop.sh | iex
+```
+3. Install direnv with scoop
+```
+scoop install direnv
+```
