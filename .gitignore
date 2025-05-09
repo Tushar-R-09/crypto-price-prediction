@@ -5,3 +5,4 @@ __pycache__/
 *.whl
 .env.local
 *.env
+state/
