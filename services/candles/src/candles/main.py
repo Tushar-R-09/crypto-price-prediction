@@ -12,7 +12,7 @@ def init_candle(trade: dict) -> dict:
 
     return {
         'open': trade['price'],
-        'high': trade['volume'],
+        'high': trade['price'],
         'low': trade['price'],
         'close': trade['price'],
         'volume': trade['quantity'],
@@ -98,6 +98,40 @@ def run(
     else:
         # Emit only complete candles
         sdf = sdf.final()
+    
+     # Extract open, high, low, close, volume, timestamp_ms, pair from the dataframe
+    sdf['open'] = sdf['value']['open']
+    sdf['high'] = sdf['value']['high']
+    sdf['low'] = sdf['value']['low']
+    sdf['close'] = sdf['value']['close']
+    sdf['volume'] = sdf['value']['volume']
+    # sdf['timestamp_ms'] = sdf['value']['timestamp_ms']
+    sdf['pair'] = sdf['value']['pairs']
+
+    # Extract window start and end timestamps
+    sdf['window_start_ms'] = sdf['start']
+    sdf['window_end_ms'] = sdf['end']
+
+    # keep only the relevant columns
+    sdf = sdf[
+        [
+            'pair',
+            # 'timestamp_ms',
+            'open',
+            'high',
+            'low',
+            'close',
+            'volume',
+            'window_start_ms',
+            'window_end_ms',
+        ]
+    ]
+
+    sdf['candle_seconds'] = candle_seconds
+
+
+    #logging on console
+    sdf = sdf.update(lambda value: logger.info(f'Candle: {value}'))
 
     # Send data to output topic
     sdf = sdf.to_topic(candles_topic)
