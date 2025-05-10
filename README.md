@@ -123,3 +123,7 @@ iwr -useb get.scoop.sh | iex
 ```
 scoop install direnv
 ```
+
+### Challenges
+1. Make docker images lighter in weight by breaking them up
+2. Make a single docker file for all services passing service name as a parameter from the make file.

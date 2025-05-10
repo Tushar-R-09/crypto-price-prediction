@@ -45,9 +45,10 @@ def run(
         kafka_broker_address: str,
         kafka_input_topic: str,
         kafka_output_topic: str,
-
+        kafka_consumer_group: str,
         # candle parameters
         candle_seconds: int,
+
         emit_incomplete_candle: bool = True
         ):
     """
@@ -61,13 +62,14 @@ def run(
         kafka_broker_address (str): Kafka broker address
         kafka_input_topic (str): Kafka input topic name
         kafka_output_topic (str): Kafka output topic name
+        kafka_consumer_group (str): Kafka consumer group name
         candle_sec (int): Candle duration in seconds
     Raises:
         None
     """
     app = Application(
         broker_address=kafka_broker_address
-        ,consumer_group='example'
+        ,consumer_group=kafka_consumer_group
     )
 
     #Input topic
@@ -147,5 +149,6 @@ if __name__ == "__main__":
         kafka_broker_address=config.kafka_broker_address,
         kafka_input_topic = config.kafka_input_topic,
         kafka_output_topic= config.kafka_output_topic,
+        kafka_consumer_group= config.kafka_consumer_group,
         candle_seconds = config.candle_seconds
     )
