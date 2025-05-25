@@ -12,7 +12,7 @@ def run(
         ):
     app = Application(
         broker_address=kafka_broker_address
-        ,consumer_group='example'
+
     )
 
     # Define a topic "my_topic" with JSON serialization

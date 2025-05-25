@@ -127,3 +127,41 @@ scoop install direnv
 ### Challenges
 1. Make docker images lighter in weight by breaking them up
 2. Make a single docker file for all services passing service name as a parameter from the make file.
+3. Read about kafka_topic, kafka_partition, kafka_replication, message keys.
+
+### MAke kubernetes cluster on digital ocean
+1. Install doctl
+2. Authenticate yourself
+```
+doctl auth init
+```
+3. create cluster
+```
+doctl kubernetes cluster create my-k8s-cluster --region nyc1 --version latest --size s-2vcpu-4gb --count 1 && doctl kubernetes cluster kubeconfig save my-k8s-cluster && kubectl get nodes && k9s
+```
+
+4. listing all the clusters
+```
+kubectl config get-contexts
+```
+
+5. Regenerate kind config 
+```
+kind get kubeconfig > C:\Users\LENOVO\.kube\config
+```
+6. Generate prod config file
+```
+doctl kubernetes cluster kubeconfig show <cluster-name> > %USERPROFILE%\.kube\config-rwl-prod
+
+```
+
+### Deploy candles and trades service to prod cluster 
+
+```
+Make deploy-for-dev service=trades/candles
+```
+### Bump the prod cluster with different docker image
+
+```
+kubectl set image deployment/trades -n rwml trades=ghcr.io/tushar-r-09/candles:0.1.3-beta.20250517164825
+```

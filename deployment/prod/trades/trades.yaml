@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trades
+  namespace: rwml
+  labels:
+    app: trades
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: trades
+  template:
+    metadata:
+      labels:
+        app: trades
+    spec:
+      containers:
+      - name: trades
+        image: ghcr.io/tushar-r-09/trades:0.1.3-beta.20250517164458
+        imagePullPolicy: Always # Make sure that we always use the latest docker images from the github container registry, disregarding the caches images that kubernetes might have.
+        env:
+        - name: KAFKA_BROKER_ADDRESS
+          value: kafka-e11b-kafka-bootstrap.kafka.svc.cluster.local:9092
+        - name: KAFKA_TOPIC
+          value: "trades"
