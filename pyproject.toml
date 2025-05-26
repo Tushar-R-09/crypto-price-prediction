@@ -9,16 +9,19 @@ dependencies = [
     "loguru>=0.7.3",
     "python-dotenv>=1.1.0",
     "quixstreams>=3.13.1",
+    "ta-lib>=0.6.3",
+    "technical-indicator",
     "trades",
     "websocket-client>=1.8.0",
 ]
 
 [tool.uv.workspace]
-members = ["services/trades", "services/candles"]
+members = ["services/trades", "services/candles", "services/technical_indicator"]
 
 [tool.uv.sources]
 trades = { workspace = true }
 candles = { workspace = true }
+technical-indicator = { workspace = true }
 
 [tool.ruff]
 line-length = 88

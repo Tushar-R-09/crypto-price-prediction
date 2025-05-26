@@ -128,6 +128,7 @@ scoop install direnv
 1. Make docker images lighter in weight by breaking them up
 2. Make a single docker file for all services passing service name as a parameter from the make file.
 3. Read about kafka_topic, kafka_partition, kafka_replication, message keys.
+4. How to use kafka registry to make messages have correct formating.
 
 ### MAke kubernetes cluster on digital ocean
 1. Install doctl
