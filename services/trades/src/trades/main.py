@@ -12,12 +12,14 @@ def run(
         ):
     app = Application(
         broker_address=kafka_broker_address
-
     )
 
     # Define a topic "my_topic" with JSON serialization
     topic = app.topic(name=kafka_topic_name
-                      ,value_serializer='json')
+                      ,value_serializer='json'
+                      # Can be used from quixstream models import TopicConfig to configure topic if it doesn't exist
+                      #, config = TopicConfig(replication_factor=2, num_partitions=2)
+                      )
 
     # Create a Producer instance
     with app.get_producer() as producer:

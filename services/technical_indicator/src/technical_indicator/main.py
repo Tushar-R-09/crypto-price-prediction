@@ -1,5 +1,7 @@
-from quixstreams import Application
+from quixstreams import Application, State
 from loguru import logger
+from technical_indicator.candles import update_candles_to_state
+from technical_indicator.indicators import compute_technical_indicators
 
 
 
@@ -39,19 +41,28 @@ def run(
     #Output topic
     technical_indicators_topic = app.topic(name=kafka_output_topic, value_serializer='json')
 
-    #Ingest the data from candles topic
+    # Step 1. Ingest the data from candles input topic
     sdf = app.dataframe(topic = candles_topic)
 
 
-    # Keep only candles for the given 'candles seconds'
+    # Step 2. Keep only candles for the given 'candles seconds'
     sdf = sdf[sdf['candle_seconds'] == candle_seconds]
 
-    # Step 2. Compute technical indicators
+    # Step 3. Add candles to state dictionary
+    sdf = sdf.apply(update_candles_to_state, stateful=True)
 
-    # Print it up
+    # logging on console
+    # sdf = sdf.update(lambda message: logger.debug(f'Input: {message}'))
+    
+    # sdf = sdf.update(lambda _: breakpoint())
+
+    # Step 4. Calculate technical indicators
+    sdf = sdf.apply(compute_technical_indicators, stateful=True)
+
+    # Print it up on console
     sdf = sdf.update(lambda message: logger.info(f'Input: {message}'))
     
-    # Send data to output topic
+    # Step 5. Send data to output topic
     sdf = sdf.to_topic(technical_indicators_topic)
 
     #Start the streaming app

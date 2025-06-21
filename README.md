@@ -129,8 +129,10 @@ scoop install direnv
 2. Make a single docker file for all services passing service name as a parameter from the make file.
 3. Read about kafka_topic, kafka_partition, kafka_replication, message keys.
 4. How to use kafka registry to make messages have correct formating.
+5. Port forwarding using K9s (shift+f from services)
+6. How to decide to which external port to map to ? (Rules to map)
 
-### MAke kubernetes cluster on digital ocean
+### Make kubernetes cluster on digital ocean
 1. Install doctl
 2. Authenticate yourself
 ```
@@ -166,3 +168,21 @@ Make deploy-for-dev service=trades/candles
 ```
 kubectl set image deployment/trades -n rwml trades=ghcr.io/tushar-r-09/candles:0.1.3-beta.20250517164825
 ```
+
+### Kubectl events log
+```
+kubectl get events -A -w
+```
+
+### Tools to monitor kubernetes
+1. Prometheus = to monitor metrics
+2. Graphanna
+3. logz.io
+4. kibana
+5. Ingress = Make service to accept outside traffic (Using Nginx and load balancer etc)
+6. Helm : pip for kubernetes
+
+### Tools for orchestration python pipeline
+
+1. Zenml
+2. Flyte

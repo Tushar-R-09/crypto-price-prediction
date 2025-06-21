@@ -13,6 +13,8 @@ class Settings(BaseSettings):
     kafka_consumer_group: str
     candle_seconds: int
 
+    max_candles_in_state: int = 10 
+
 config = Settings()
 
 #print(config.model_dump())
