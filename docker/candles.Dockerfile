@@ -1,40 +1,72 @@
-# Use a Python image with uv pre-installed
-FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
+# ---------- Builder Stage ----------
+FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim AS builder
 
-# Install the project into `/app`
+# Install build dependencies
+RUN apt-get update && apt-get install -y \
+    gcc \
+    build-essential \
+    wget \
+    && rm -rf /var/lib/apt/lists/*
+
+# Build and install TA-Lib
+WORKDIR /build
+ENV TALIB_DIR=/usr/local
+
+RUN wget https://github.com/ta-lib/ta-lib/releases/download/v0.6.4/ta-lib-0.6.4-src.tar.gz && \
+    tar -xzf ta-lib-0.6.4-src.tar.gz && \
+    cd ta-lib-0.6.4 && \
+    ./configure --prefix=$TALIB_DIR && \
+    make -j$(nproc) && \
+    make install
+
+# Prepare app dependencies
 WORKDIR /app
-
-# Enable bytecode compilation
 ENV UV_COMPILE_BYTECODE=1
-
-# Copy from the cache instead of linking since it's a mounted volume
 ENV UV_LINK_MODE=copy
 
-#copy serivices as this is the folder which containe the trades folder which uv tries to install from project.toml file
 COPY services /app/services
-# Install the project's dependencies using the lockfile and settings
+COPY pyproject.toml uv.lock /app/
+
 RUN --mount=type=cache,target=/root/.cache/uv \
-    --mount=type=bind,source=uv.lock,target=uv.lock \
-    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
     uv sync --frozen --no-install-project --no-dev
 
-# Then, add the rest of the project source code and install it
-# Installing separately from its dependencies allows optimal layer caching
-ADD . /app
+# ---------- Final Slim Stage ----------
+FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
+
+# Copy compiled TA-Lib from builder
+COPY --from=builder /usr/local/lib/libta_lib.* /usr/local/lib/
+COPY --from=builder /usr/local/include/ta-lib /usr/local/include/
+RUN ldconfig
+
+# Set up app directory
+WORKDIR /app
+
+# Copy services and dependencies
+COPY services /app/services
+COPY pyproject.toml uv.lock /app/
+
+ENV UV_COMPILE_BYTECODE=1
+ENV UV_LINK_MODE=copy
+
+# Install dependencies without source code
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --frozen --no-install-project --no-dev
+
+# Copy full source code
+COPY . /app
+
+# Final install with source
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --frozen --no-dev
 
-# Place executables in the environment at the front of the path
+# Activate virtual environment
 ENV PATH="/app/.venv/bin:$PATH"
 
-# Reset the entrypoint, don't invoke `uv`
+# Reset entrypoint
 ENTRYPOINT []
 
-# Run the FastAPI application by default
-# Uses `fastapi dev` to enable hot-reloading when the `watch` sync occurs
-# Uses `--host 0.0.0.0` to allow access from outside the container
+# Default command to run candles service
 CMD ["uv", "run", "/app/services/candles/src/candles/main.py"]
 
-
-# TO keep the container hanging there so we can look into it
-# CMD ["/bin/bash", "-c", "sleep 9999999"]  
+# For debugging (uncomment if needed)
+# CMD ["/bin/bash", "-c", "sleep 9999999"]
