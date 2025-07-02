@@ -131,6 +131,8 @@ scoop install direnv
 4. How to use kafka registry to make messages have correct formating.
 5. Port forwarding using K9s (shift+f from services)
 6. How to decide to which external port to map to ? (Rules to map)
+7. Remove ta-lib from workspace level and move it to technical_indicator service
+8. load parameters like sma_7, sma_14, sma_21, sma_60 through a yaml file
 
 ### Make kubernetes cluster on digital ocean
 1. Install doctl

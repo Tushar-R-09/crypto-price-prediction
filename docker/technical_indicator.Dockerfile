@@ -76,7 +76,7 @@ ENV PATH="/app/.venv/bin:$PATH"
 # Reset the entrypoint, don't invoke `uv`
 ENTRYPOINT []
 
-CMD ["python", "/app/services/technical_indicators/src/technical_indicators/main.py"]
+CMD ["python", "/app/services/technical_indicator/src/technical_indicator/main.py"]
 
 # If you want to debug the file system, uncomment the line below
 # This will keep the container running and allow you to exec into it

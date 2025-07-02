@@ -15,6 +15,9 @@ deploy-for-dev: build-for-dev push-for-dev
 	kubectl delete -f deployment/dev/${service}/${service}.yaml --ignore-not-found=true
 	kubectl apply -f deployment/dev/${service}/${service}.yaml
 
+run: build-for-dev
+	docker run -it ${service}:dev
+
 ####################################################################################
 ##Production
 ####################################################################################
