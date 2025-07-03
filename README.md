@@ -188,3 +188,22 @@ kubectl get events -A -w
 
 1. Zenml
 2. Flyte
+
+## Install Rising wave
+
+```
+helm repo add risingwavelabs https://risingwavelabs.github.io/helm-charts/ --force-update
+helm repo update
+helm upgrade --install --create-namespace --wait risingwave risingwavelabs/risingwave --namespace=risingwave -f manifests/risingwave-values.yaml 
+```
+
+### Make bash script executable
+```
+chmod 755 install_risingwave.sh 
+./install_risingwave.sh 
+```
+
+### Postgreesql command
+```
+psql -h localhost -p 4567 -d dev -U root
+```
