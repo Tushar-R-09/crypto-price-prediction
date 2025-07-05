@@ -72,6 +72,15 @@ def run(
 
 if __name__ == "__main__":
     from technical_indicator.config import config
+    from technical_indicator.table import create_table_in_risingwave
+
+    create_table_in_risingwave(
+        table_name=config.table_name_in_risingwave,
+        kafka_broker_address=config.kafka_broker_address,
+        kafka_topic=config.kafka_output_topic
+    )
+
+    
     run(
         kafka_broker_address=config.kafka_broker_address,
         kafka_input_topic = config.kafka_input_topic,

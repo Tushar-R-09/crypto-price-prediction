@@ -18,7 +18,21 @@ echo "Creating the cluster..."
 KIND_EXPERIMENTAL_DOCKER_NETWORK=rwml-34fa-network kind create cluster --config ./kind-with-portmapping.yaml
 
 # 5. Install Strimzi Kafka
+echo "Installing kafka"
+chmod +x ./install_kafka.sh
 ./install_kafka.sh
 
 # 6. Install Kafka UI
+echo "Installing kafka UI"
+chmod +x ./install_kafka_ui.sh
 ./install_kafka_ui.sh
+
+#7. Installing Risingwave
+echo "Installing Rising wave"
+chmod +x ./install_risingwave.sh
+./install_risingwave.sh
+
+#8. Installing Grafana
+echo "Installing Grafana"
+chmod +x ./install_grafana.sh
+./install_grafana.sh

@@ -13,7 +13,18 @@ class Settings(BaseSettings):
     kafka_consumer_group: str
     candle_seconds: int
 
-    max_candles_in_state: int = 10 
+    max_candles_in_state: int = 70 
+
+    table_name_in_risingwave: str = "technical_indicators"
+
+    @classmethod
+    def from_yaml(
+        cls,
+        path_to_yaml: str
+    ):
+        """
+        Load the configuration of yaml file and return an instance of the Settings class
+        """
 
 config = Settings()
 
