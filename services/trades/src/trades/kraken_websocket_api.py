@@ -1,36 +1,28 @@
 import json
 
 from loguru import logger
-from pydantic import BaseModel
 from websocket import create_connection
 
-
-class Trade(BaseModel):
-    product_id: str
-    price: float
-    quantity: float
-    timestamp: str
-
-    def to_dict(self) -> dict:
-        return self.model_dump()
+from trades.trade import Trade
 
 
-
-class KrakenAPI:
+class KrakenWebsocketAPI:
     URL = 'wss://ws.kraken.com/v2'
-    def __init__(self,
-                 product_ids : list[str]):
+
+    def __init__(
+        self,
+        product_ids: list[str],
+    ):
         self.product_ids = product_ids
 
-        #create websocket client
+        # create a websocket client
         self._ws_client = create_connection(self.URL)
 
-        #send initial subscribe message
+        # send initial subscribe message
         self._subscribe(product_ids)
 
     def get_trades(self) -> list[Trade]:
-        # receive the data from the websocket
-        data = self._ws_client.recv()
+        data: str = self._ws_client.recv()
 
         if 'heartbeat' in data:
             logger.info('Heartbeat received')
@@ -49,6 +41,8 @@ class KrakenAPI:
             logger.error(f'No `data` field with trades in the message {e}')
             return []
 
+        # Method 1 to create a list of trades
+        # Naive implementation
         # trades = []
         # for trade in trades_data:
         #     trades.append(
@@ -60,9 +54,10 @@ class KrakenAPI:
         #         )
         #     )
 
-        #Using list comprehension (Faster)
+        # Method 2 to create a list of trades
+        # Using list comprehension (this is faster)
         trades = [
-            Trade(
+            Trade.from_kraken_websocket_response(
                 product_id=trade['symbol'],
                 price=trade['price'],
                 quantity=trade['qty'],
@@ -73,10 +68,10 @@ class KrakenAPI:
 
         return trades
 
-
     def _subscribe(self, product_ids: list[str]):
         """
-        Subscribes to the websocket and waits for the initial snapshot.
+        Subscribes to the websocket for the given `product_ids`
+        and waits for the initial snapshot.
         """
         # send a subscribe message to the websocket
         self._ws_client.send(
@@ -92,8 +87,14 @@ class KrakenAPI:
             )
         )
 
-       # breakpoint()
-        #discard the first two messages for each product ids as they contain no trade data
+        # discard the first 2 messages for each product_id
+        # as they contain no trade data
         for _ in product_ids:
             _ = self._ws_client.recv()
             _ = self._ws_client.recv()
+
+    def is_done(self) -> bool:
+        """
+        Returns True if the websocket is done, False otherwise.
+        """
+        return False
