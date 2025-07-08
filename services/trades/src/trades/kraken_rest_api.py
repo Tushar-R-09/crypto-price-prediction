@@ -60,6 +60,8 @@ class KrakenRestAPI:
         except json.JSONDecodeError as e:
             logger.error(f'Failed to parse response as json: {e}')
             return []
+        
+        #breakpoint()
 
         try:
             # Get the trades data
@@ -87,7 +89,7 @@ class KrakenRestAPI:
             # we got trades until now, so we can stop
             self._is_done = True
 
-        # breakpoint()
+        #breakpoint()
 
         return trades
 

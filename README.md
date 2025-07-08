@@ -134,6 +134,8 @@ scoop install direnv
 7. Remove ta-lib from workspace level and move it to technical_indicator service
 8. load parameters like sma_7, sma_14, sma_21, sma_60 through a yaml file
 9. Put candles.json in a config map so that we can load dashboard the moment we install grafana instead of manually regenerating it up.
+10. Take a look at metabase and use it instead grafana
+11. Ingest historical for many crypto currencies, not. just one.
 
 ### Make kubernetes cluster on digital ocean
 1. Install doctl
