@@ -136,6 +136,8 @@ scoop install direnv
 9. Put candles.json in a config map so that we can load dashboard the moment we install grafana instead of manually regenerating it up.
 10. Take a look at metabase and use it instead grafana
 11. Ingest historical for many crypto currencies, not. just one.
+12. Set the version for docker push to prod from pyproject.toml not as hard coded
+13. Set up the launch.json so we can debug uv with VSCode like a pro
 
 ### Make kubernetes cluster on digital ocean
 1. Install doctl

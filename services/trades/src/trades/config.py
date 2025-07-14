@@ -9,9 +9,9 @@ class Settings(BaseSettings):
     )
 
     product_ids: list[str] = [
+        'BTC/EUR',
         'ETH/EUR',
         'BTC/USD',
-        'BTC/EUR',
         'ETH/USD',
         'SOL/USD',
         'SOL/EUR',
